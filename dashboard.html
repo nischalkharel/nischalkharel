@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+  <main>
+    <form id="project-form">
+      <label for="project-title">Project Title:</label>
+      <input type="text" id="project-title" required>
+
+      <label for="project-image">Project Image URL:</label>
+      <input type="url" id="project-image" required>
+
+      <label for="project-description">Description:</label>
+      <textarea id="project-description"></textarea>
+
+      <label for="project-tab">Assign to Tab:</label>
+      <select id="project-tab">
+        <option value="completed">Completed Projects</option>
+        <option value="in-progress">Projects in Progress</option>
+      </select>
+
+      <button type="submit">Add/Update Project</button>
+    </form>
+    <div id="projects-list"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

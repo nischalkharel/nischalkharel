@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+  <header>
+    <h1 id="name">Nischal Kharel</h1>
+    <nav>
+      <button class="tab active-tab" onclick="showTab('completed-projects', this)">Completed Projects</button>
+      <button class="tab" onclick="showTab('in-progress', this)">Projects in Progress</button>
+      <button class="tab" onclick="showTab('about-me', this)">About Me</button>
+    </nav>
+    <div id="theme-toggle">
+      <div class="switch" onclick="toggleTheme()"></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="completed-projects" class="tab-content active">
+      <div class="gallery" id="completed-gallery">
+        <!-- Project Tile -->
+        <div class="project-tile">
+          <a href="robotic-arm-details.html">
+            <img src="robotic_arm.jpeg" alt="Robotic Arm with Computer Vision">
+            <h3>Robotic Arm with Computer Vision</h3>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section id="in-progress" class="tab-content">
+      <div class="gallery" id="in-progress-gallery">
+        <p>No projects in progress yet.</p>
+      </div>
+    </section>
+    <section id="about-me" class="tab-content">
+      <p class="centered">Details about you go here...</p>
+    </section>
+  </main>
+
+  <footer>
+    <span id="secret-emoji" class="centered" title="Click me!" onclick="openLoginModal()">🔒</span>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h2>Admin Login</h2>
+      <form id="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <button type="submit">Login</button>
+      </form>
+      <p id="error-message" class="hidden">Incorrect username or password!</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

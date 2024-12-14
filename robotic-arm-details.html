@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robotic Arm with Computer Vision</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #121212;
+      color: white;
+    }
+
+    header {
+      position: relative;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #project-title {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+
+    p {
+      text-indent: 20px;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .image-gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .image-gallery img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .github-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #333;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .github-button img {
+      width: 70px;
+      height: 70px;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .menu-icon {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      background: #333;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .popup-menu {
+      display: none;
+      position: fixed;
+      top: 150px;
+      right: 30px;
+      background: #222;
+      color: white;
+      border: 1px solid #444;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-menu a {
+      color: #00bcd4;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+
+    .popup-menu a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button onclick="goBack()" class="back-button">&larr; Back</button>
+    <h1 id="project-title">Robotic Arm with Computer Vision</h1>
+  </header>
+
+  <main>
+    <button class="github-button" onclick="window.open('https://github.com/nischalkharel/RoboticArm', '_blank')">
+      <img src="git_logo.png" alt="GitHub">
+    </button>
+
+    <div class="menu-icon" onclick="toggleMenu()">≡</div>
+    <div class="popup-menu" id="popup-menu">
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/arm.py" target="_blank">arm.py</a>
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/camera.py" target="_blank">camera.py</a>
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/calculate_angles_for.py" target="_blank">calculate_angles_for.py</a>
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/move_motor.py" target="_blank">move_motor.py</a>
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/audio_in.py" target="_blank">audio_in.py</a>
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/audio_out.py" target="_blank">audio_out.py</a>
+    </div>
+
+    <section id="project-description">
+      <h1>Design Overview</h1>
+      <h2>High-Level Description</h2>
+      <p>For this project, I built a robotic arm that uses computer vision to detect, pick up, and place a block with a metal gripper. The block is identified using an ArUco marker, and the arm calculates its movements based on the marker’s position in 3D space. To make it more fun and interactive, I added voice control where I can say "activate now," and the arm not only starts moving but also responds with voice prompts through a speaker I added. This was probably my favorite part because it made the arm feel less like a machine and more like something you could interact with naturally.</p>
+
+      <h2>Original Design Concepts</h2>
+      <p>At the start, I planned to use a stereo camera setup for depth sensing and wanted to build the arm structure myself, possibly using a 3D printer. However, after researching and testing, I realized that manually building the arm would take too much time. I also discovered that using servo motors instead of steppers gave me better precision and was easier to control, so I went with pre-built arm pieces from Amazon to save time and focus on the software side of the project.</p>
+
+      <p>For the camera, I actually managed to get the stereo camera to detect and track the block after a lot of struggle. I calibrated the stereo setup using the checkerboard calibration technique I learned from OpenCV’s website. However, when I compared it to the Arducam with the ArUco library, I found the stereo setup wasn’t more accurate for my needs, so I decided to stick with the simpler Arducam. If anyone’s curious, I uploaded my stereo camera code and experiments to my GitHub repository for this project. You can check it out there if you want to see how I set it up.</p>
+
+      <h2>Final Design</h2>
+      <p>The final design brings together hardware and software in a system that works smoothly:</p>
+      
+      <ul>
+        <li><strong>Arm and Gripper:</strong> The arm is made of pre-built pieces, and the metal gripper is servo-controlled to pick up and release the block.</li>
+        <li><strong>Camera:</strong> An Arducam mounted on the arm base detects the block using the ArUco library. I adjusted the library’s outputs for better distance accuracy. The camera was calibrated using OpenCV’s checkerboard calibration method.</li>
+        <li><strong>Motors:</strong> All arm joints are powered by servo motors, which are controlled using the Adafruit ServoKit library for precise movements.</li>
+        <li><strong>Voice Interaction:</strong> I added a microphone and speaker for voice control and feedback. Saying "activate now" triggers the arm, which responds with phrases like “Arm activated” before starting its routine.</li>
+        <li><strong>Control Software:</strong> The project is driven by a set of Python files that work together like this:
+          <ul>
+            <li><strong>arm.py:</strong> This is the main file that ties everything together. It listens for voice commands and coordinates the overall process, from detecting the block to moving the arm.</li>
+            <li><strong>camera.py:</strong> This handles detecting the ArUco marker, calculating the block's position in x, y, z, and returning those coordinates.</li>
+            <li><strong>calculate_angles_for.py:</strong> Using the block’s coordinates, this file calculates the angles for each joint of the arm. I simplified inverse kinematics into something more intuitive for me, which worked better than traditional IK.</li>
+            <li><strong>move_motor.py:</strong> This file sends the calculated angles to the servos, making the arm move smoothly.</li>
+            <li><strong>audio_in.py and audio_out.py:</strong> These files handle the voice interaction. One listens for commands through the microphone, and the other sends audio feedback through the speaker.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="image-gallery">
+        <img src="arm_transparent.png" alt="Robotic Arm Design" style="width: 300px; height: auto;">
+      </div>
+      <h2>Expanding on Previous Work</h2>
+      <p>This project builds on a mix of existing tools and my own modifications:</p>
+      <ul>
+        <li><strong>Servo Control:</strong> I initially tried manually programming servo movements, but they were too jerky. The Adafruit ServoKit library made a huge difference, letting me smoothly move the joints to exact angles.</li>
+        <li><strong>Custom IK Logic:</strong> I spent days trying to understand traditional inverse kinematics. While I got it partially working, it wasn’t accurate enough for my setup. So, I developed a simpler version of IK that skips matrices and uses trigonometry that made more sense to me. (I’ll explain the math later in this blog.)</li>
+        <li><strong>ArUco Markers:</strong> Using the ArUco library, I detected and calculated distances to the block. However, the library’s output wasn’t perfect, so I tweaked the distance values manually to improve accuracy.</li>
+        <li><strong>Stereo Camera:</strong> Although I didn’t use the stereo camera in the final setup, it was a great learning experience. I calibrated it using OpenCV’s checkerboard calibration and got it working, but it wasn’t more accurate than the Arducam setup. You can find my stereo camera code and experiments on my GitHub repository if you’re curious.</li>
+      </ul>
+
+      <h2>Purpose</h2>
+      <p>This project was a way for me to dive deeper into robotics, math, and computer vision. It’s not just a robotic arm—it’s a system where hardware and software work together in sync. The voice control and feedback added personality to the arm, making it more interactive and fun to use. I’m really proud of what I built, and there’s so much potential to expand it further, like sorting objects or even playing chess.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Nischal Kharel</p>
+  </footer>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById('popup-menu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
