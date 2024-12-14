@@ -3,64 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>Nischal Kharel Portfolio</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body class="dark-mode">
+<body>
+  <canvas id="particle-canvas"></canvas>
   <header>
-    <h1 id="name">Nischal Kharel</h1>
-    <nav>
-      <button class="tab active-tab" onclick="showTab('completed-projects', this)">Completed Projects</button>
-      <button class="tab" onclick="showTab('in-progress', this)">Projects in Progress</button>
-      <button class="tab" onclick="showTab('about-me', this)">About Me</button>
-    </nav>
-    <div id="theme-toggle">
-      <div class="switch" onclick="toggleTheme()"></div>
+    <div id="name-container">
+      <div id="name-animation"></div>
+      <div id="moon" onclick="togglePopup()"></div>
     </div>
+    <nav>
+      <button class="tab active-tab" onclick="showTab('home', this)">Home</button>
+      <button class="tab" onclick="showTab('completed-projects', this)">Completed Projects</button>
+      <button class="tab" onclick="showTab('in-progress', this)">Projects in Progress</button>
+    </nav>
   </header>
 
   <main>
-    <section id="completed-projects" class="tab-content active">
-      <div class="gallery" id="completed-gallery">
-        <!-- Project Tile -->
+    <!-- Home Section -->
+    <section id="home" class="tab-content active">
+      <div class="code-window">
+        <div class="code-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="code-content">
+          <p>
+            Hey there! I'm <strong>Nischal Kharel</strong>, a Computer Engineering student at the University of Pittsburgh. I’m the kind of person who can spend hours solving a bug in code, only to realize it was a missing semicolon—but hey, that’s part of the fun, right?
+          </p>
+          <p>
+            My interests lie in building intelligent systems that blend hardware and software. Whether it's robotics, machine learning, or AI, I thrive on tackling challenging problems and learning something new along the way. I’m especially excited about diving deeper into AI and ML to design systems that can truly “think” and assist us in meaningful ways. Welcome to my portfolio—let's make something awesome together!
+          </p>
+          <button id="fact-button">Click for a Fun Fact!</button>
+          <p id="fun-fact" class="hidden"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Completed Projects Section -->
+    <section id="completed-projects" class="tab-content">
+      <div class="project-container">
         <div class="project-tile">
           <a href="robotic-arm-details.html">
             <img src="robotic_arm.jpeg" alt="Robotic Arm with Computer Vision">
             <h3>Robotic Arm with Computer Vision</h3>
           </a>
         </div>
+        <div class="project-summary">
+          <p>
+            This robotic arm uses computer vision to locate objects with precision, responding instantly to voice commands. Powered by smart algorithms and an advanced camera system, it’s a seamless blend of intelligence and innovation. Click to explore the tech and creativity behind it!
+          </p>
+        </div>
       </div>
     </section>
+
+    <!-- Projects in Progress Section -->
     <section id="in-progress" class="tab-content">
-      <div class="gallery" id="in-progress-gallery">
-        <p>No projects in progress yet.</p>
-      </div>
-    </section>
-    <section id="about-me" class="tab-content">
-      <p class="centered">Details about you go here...</p>
+      <h2>Projects in Progress</h2>
+      <p>Projects in progress will be listed here.</p>
     </section>
   </main>
 
-  <footer>
-    <span id="secret-emoji" class="centered" title="Click me!" onclick="openLoginModal()">🔒</span>
-  </footer>
-
-  <!-- Login Modal -->
-  <div id="login-modal" class="modal hidden">
-    <div class="modal-content">
-      <span class="close" onclick="closeLoginModal()">&times;</span>
-      <h2>Admin Login</h2>
-      <form id="login-form">
-        <label for="username">Username:</label>
-        <input type="text" id="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-        <button type="submit">Login</button>
-      </form>
-      <p id="error-message" class="hidden">Incorrect username or password!</p>
+  <!-- Popup Modal -->
+  <div id="social-popup" class="popup hidden">
+    <div class="popup-content">
+      <span class="close-popup" onclick="closePopup()">&times;</span>
+      <h2>Connect with Me</h2>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/nischalkharel/" target="_blank">
+          <img src="linkedIn.png" alt="LinkedIn" class="social-icon">
+        </a>
+        <a href="https://github.com/nischalkharel" target="_blank">
+          <img src="git_logo.png" alt="GitHub" class="social-icon">
+        </a>
+      </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Tab functionality
+    function showTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach((tab) => {
+        tab.classList.remove('active');
+      });
+      document.getElementById(tabId).classList.add('active');
+
+      document.querySelectorAll('.tab').forEach((tab) => {
+        tab.classList.remove('active-tab');
+      });
+      element.classList.add('active-tab');
+    }
+
+    // Popup Functionality
+    function closePopup() {
+      document.getElementById("social-popup").classList.add("hidden");
+    }
+
+    function togglePopup() {
+      document.getElementById("social-popup").classList.remove("hidden");
+    }
+
+    // Name Animation
+    document.addEventListener("DOMContentLoaded", () => {
+      const nameAnimation = document.getElementById("name-animation");
+      nameAnimation.textContent = "Nischal Kharel";
+    });
+  </script>
 </body>
 </html>
