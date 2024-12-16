@@ -19,7 +19,7 @@
       position: relative;
       padding: 20px;
       background-color: #333;
-      color: white;
+      color: rgb(240, 170, 170);
       text-align: center;
     }
 
@@ -28,7 +28,7 @@
       top: 20px;
       left: 20px;
       padding: 10px 15px;
-      background: white;
+      background: rgb(190, 230, 195);
       color: black;
       border: none;
       border-radius: 5px;
@@ -42,8 +42,8 @@
     }
 
     main {
-      padding: 20px;
-      max-width: 800px;
+      padding: 5px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -153,6 +153,107 @@
       background: #333;
       color: white;
     }
+    .code-block {
+  background-color: #241f1f;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  overflow-x: auto;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+  
+}
+code {
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.code-block {
+  background-color: #1e1e1e; /* Darker background for contrast */
+  color: #d4d4d4; /* Light gray text for better readability */
+  font-family: 'Courier New', Courier, monospace; /* Classic monospace font */
+  padding: 20px; /* Spacious padding for a clean look */
+  border-radius: 8px; /* Rounded corners for modern design */
+  margin: 20px 0; /* Consistent spacing */
+  border: 1px solid #333; /* Subtle border for definition */
+  overflow-x: auto; /* Horizontal scrolling for long lines of code */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+pre {
+  margin: 0; /* Remove default margins inside the code block */
+  line-height: 1.5; /* Better line spacing for readability */
+}
+
+code {
+  display: block; /* Ensure code wraps properly */
+  white-space: pre-wrap; /* Allow code to wrap for better UX */
+  word-break: break-word; /* Handle long, unbroken strings */
+}
+
+.subtitle {
+  text-align: center; /* Center the text */
+  color: #a0dde6; /* A distinct color (cyan in this case) */
+  font-size: 1.8rem; /* Slightly smaller than main section titles */
+  margin: 20px 0; /* Add spacing above and below */
+  font-weight: bold; /* Make it stand out */
+}
+.subtitle_2 { /*for subtitle's subtitle*/
+  text-align: center; /* Center the text */
+  color: #a0dde6; /* A distinct color (cyan in this case) */
+  font-size: 1.5rem; /* Slightly smaller than main section titles */
+  margin: 20px 0; /* Add spacing above and below */
+}
+
+.image-container {
+    display: flex; /* Arrange images side by side */
+    justify-content: center; /* Center the images in the container */
+    gap: 20px; /* Add space between the images */
+    margin: 30px 0; /* Add space above and below the image container */
+}
+
+.image-container .image {
+    max-width: 45%; /* Ensure images take up 45% of the container width each */
+    height: auto; /* Maintain aspect ratio */
+    border: 2px solid #ccc; /* Add a subtle border */
+    border-radius: 8px; /* Slightly round the corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+}
+
+.caption-box {
+    background-color: #333; /* Dark gray background */
+    color: #ddd; /* Light gray text */
+    font-size: 1.2rem; /* Slightly larger font for readability */
+    text-align: center; /* Center-align the caption */
+    padding: 15px; /* Add padding inside the box */
+    margin: 20px auto; /* Center the box and add vertical spacing */
+    max-width: 80%; /* Restrict width to make it look proportional */
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow for pop-out effect */
+    border: 1px solid #444; /* Add a border to separate it from the background */
+}
+
+/* I am using this to hyperlink the files*/
+.highlight-link {
+    text-decoration: none; /* Remove the default underline */
+}
+
+.highlight-link:hover {
+    text-decoration: none; /* Ensure no underline appears on hover */
+}
+
+.highlight {
+    background-color: #333; /* Dark gray background */
+    color: #ddd; /* Light gray text */
+    padding: 3px 6px; /* Padding around the word */
+    border-radius: 4px; /* Smooth rounded edges */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    font-weight: bold; /* Optional: make it stand out more */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
+
+
   </style>
 </head>
 <body>
@@ -174,19 +275,31 @@
       <a href="https://github.com/nischalkharel/RoboticArm/blob/main/move_motor.py" target="_blank">move_motor.py</a>
       <a href="https://github.com/nischalkharel/RoboticArm/blob/main/audio_in.py" target="_blank">audio_in.py</a>
       <a href="https://github.com/nischalkharel/RoboticArm/blob/main/audio_out.py" target="_blank">audio_out.py</a>
+      <a href="https://github.com/nischalkharel/RoboticArm/blob/main/KeyboardControlledArm.py" target="_blank">KeyboardControlledArm.py</a>
     </div>
 
     <section id="project-description">
       <h1>Design Overview</h1>
-      <h2>High-Level Description</h2>
+      <h2 class="subtitle">High-Level Description</h2>
       <p>For this project, I built a robotic arm that uses computer vision to detect, pick up, and place a block with a metal gripper. The block is identified using an ArUco marker, and the arm calculates its movements based on the marker’s position in 3D space. To make it more fun and interactive, I added voice control where I can say "activate now," and the arm not only starts moving but also responds with voice prompts through a speaker I added. This was probably my favorite part because it made the arm feel less like a machine and more like something you could interact with naturally.</p>
 
-      <h2>Original Design Concepts</h2>
-      <p>At the start, I planned to use a stereo camera setup for depth sensing and wanted to build the arm structure myself, possibly using a 3D printer. However, after researching and testing, I realized that manually building the arm would take too much time. I also discovered that using servo motors instead of steppers gave me better precision and was easier to control, so I went with pre-built arm pieces from Amazon to save time and focus on the software side of the project.</p>
-
-      <p>For the camera, I actually managed to get the stereo camera to detect and track the block after a lot of struggle. I calibrated the stereo setup using the checkerboard calibration technique I learned from OpenCV’s website. However, when I compared it to the Arducam with the ArUco library, I found the stereo setup wasn’t more accurate for my needs, so I decided to stick with the simpler Arducam. If anyone’s curious, I uploaded my stereo camera code and experiments to my GitHub repository for this project. You can check it out there if you want to see how I set it up.</p>
-
-      <h2>Final Design</h2>
+      <section id="original-design-concepts">
+        <h2 class="subtitle">Original Design Concepts</h2>
+        <p>When I started, my project idea was to create a robotic arm with a camera module to detect an object’s location and pick it up. At first, I planned to 3D print the arm parts and attach motors myself to build the entire structure from scratch. However, after discussing with Dr. Dickerson, I decided to use a pre-made arm shell and focus more on integrating motors, the camera module, and the software. This approach allowed me to prioritize the technical challenges of control and computer vision without being delayed by manufacturing issues.</p>
+      
+        <p>For the camera, I originally wanted to use a stereo camera for depth sensing since they are known for accurately measuring distances. I thought this would be crucial for ensuring precise movements of the arm. However, after experimenting, I found that the stereo camera setup was challenging to configure and calibrate. While I did manage to get it to detect and track objects using OpenCV’s checkerboard calibration technique, it wasn’t significantly more accurate than a simpler setup using a single Arducam with ArUco markers. So, I ultimately decided to use the Arducam, which was more reliable for my application. If you’re curious, I’ve uploaded my stereo camera experiments to my GitHub repository, where you can check out how I set it up.</p>
+      
+        <p>Initially, I also considered including precise object placement as part of the arm’s functionality. However, I realized this would make the project scope too broad for the given timeline, so I decided to focus solely on object detection and pickup. Instead of placing the object at a specific location, I kept the task simpler by having the arm place it in a pre-defined area.</p>
+      
+        <h3 class="subtitle_2">Changes Made from the Proposal</h3>
+        <ul>
+          <li><strong>Camera Placement:</strong> I hadn’t initially decided where to place the camera, but during testing, I mounted it on the base of the arm in a custom enclosure. This position gave a stable and unobstructed view of the workspace.</li>
+          <li><strong>Pre-Made Arm:</strong> I shifted from the idea of 3D printing the arm to using a pre-made shell, which allowed me to focus on coding and integrating components like the servos and camera module.</li>
+          <li><strong>Simplified Task:</strong> I scaled back the complexity by focusing only on picking up objects rather than precise placement.</li>
+        </ul>
+      </section>
+      
+      <h2 class="subtitle">Final Design</h2>
       <p>The final design brings together hardware and software in a system that works smoothly:</p>
       
       <ul>
@@ -196,19 +309,28 @@
         <li><strong>Voice Interaction:</strong> I added a microphone and speaker for voice control and feedback. Saying "activate now" triggers the arm, which responds with phrases like “Arm activated” before starting its routine.</li>
         <li><strong>Control Software:</strong> The project is driven by a set of Python files that work together like this:
           <ul>
-            <li><strong>arm.py:</strong> This is the main file that ties everything together. It listens for voice commands and coordinates the overall process, from detecting the block to moving the arm.</li>
-            <li><strong>camera.py:</strong> This handles detecting the ArUco marker, calculating the block's position in x, y, z, and returning those coordinates.</li>
-            <li><strong>calculate_angles_for.py:</strong> Using the block’s coordinates, this file calculates the angles for each joint of the arm. I simplified inverse kinematics into something more intuitive for me, which worked better than traditional IK.</li>
-            <li><strong>move_motor.py:</strong> This file sends the calculated angles to the servos, making the arm move smoothly.</li>
-            <li><strong>audio_in.py and audio_out.py:</strong> These files handle the voice interaction. One listens for commands through the microphone, and the other sends audio feedback through the speaker.</li>
+            <li><a href="https://github.com/nischalkharel/RoboticArm/blob/main/arm.py" class="highlight-link">
+              <span class="highlight"><strong>arm.py:</strong></span></a> This is the main file that ties everything together. It listens for voice commands and coordinates the overall process, from detecting the block to moving the arm.</li>
+            <li><a href="https://github.com/nischalkharel/RoboticArm/blob/main/camera.py" class="highlight-link">
+              <span class="highlight"><strong>camera.py:</strong></span></a> This handles detecting the ArUco marker, calculating the block's position in x, y, z, and returning those coordinates.</li>
+            <li><a href="https://github.com/nischalkharel/RoboticArm/blob/main/calculate_angles_for.py" class="highlight-link">
+              <span class="highlight"><strong>calculate_angles_for.py:</strong></span></a> Using the block’s coordinates, this file calculates the angles for each joint of the arm. I simplified inverse kinematics into something more intuitive for me, which worked better than traditional IK.</li>
+            <li><a href="https://github.com/nischalkharel/RoboticArm/blob/main/move_motor.py" class="highlight-link">
+              <span class="highlight"><strong>move_motor.py:</strong></span></a> This file sends the calculated angles to the servos, making the arm move smoothly.</li>
+            <li><a href="https://github.com/nischalkharel/RoboticArm/blob/main/audio_in.py" class="highlight-link">
+              <span class="highlight"><strong>audio_in.py</strong></span></a> and <a href="https://github.com/nischalkharel/RoboticArm/blob/main/audio_out.py" class="highlight-link">
+                <span class="highlight"><strong>audio_out.py:</strong></span></a> These files handle the voice interaction. One listens for commands through the microphone, and the other sends audio feedback through the speaker.</li>
           </ul>
         </li>
       </ul>
 
       <div class="image-gallery">
         <img src="arm_transparent.png" alt="Robotic Arm Design" style="width: 300px; height: auto;">
+        <div class="caption-box">
+            <p>The image above is of the final design. I have the speaker and camera right in the front plate of my small enclosure. The mic is on the right side of the arm sticking out. Also, you can see how the (pink) servos were used. Also in the back you can see the block with ArUco that I used, but I will have more pictures of it later in the blog.</p>
+        </div>
       </div>
-      <h2>Expanding on Previous Work</h2>
+      <h2 class="subtitle">Expanding on Previous Work</h2>
       <p>This project builds on a mix of existing tools and my own modifications:</p>
       <ul>
         <li><strong>Servo Control:</strong> I initially tried manually programming servo movements, but they were too jerky. The Adafruit ServoKit library made a huge difference, letting me smoothly move the joints to exact angles.</li>
@@ -217,14 +339,101 @@
         <li><strong>Stereo Camera:</strong> Although I didn’t use the stereo camera in the final setup, it was a great learning experience. I calibrated it using OpenCV’s checkerboard calibration and got it working, but it wasn’t more accurate than the Arducam setup. You can find my stereo camera code and experiments on my GitHub repository if you’re curious.</li>
       </ul>
 
-      <h2>Purpose</h2>
+      <section id="ik-glimpse">
+        <div class="image-container">
+            <img src="ipad_math.jpg" alt="Handwritten IK Math Notes" class="image">
+            <img src="ipad_math_arm.jpg" alt="IK Applied to Arm Diagram" class="image">
+        </div>
+        <div class="caption-box">
+            <p>These are some glimpses of how I expanded on what I learned about inverse kinematics (IK) to make it simpler for my robotic arm. I will explain these more in later sections.</p>
+        </div>
+    </section>
+    
+
+    
+      <h2 class="subtitle">Purpose</h2>
       <p>This project was a way for me to dive deeper into robotics, math, and computer vision. It’s not just a robotic arm—it’s a system where hardware and software work together in sync. The voice control and feedback added personality to the arm, making it more interactive and fun to use. I’m really proud of what I built, and there’s so much potential to expand it further, like sorting objects or even playing chess.</p>
     </section>
-  </main>
+  
 
-  <footer>
-    <p>&copy; 2024 Nischal Kharel</p>
-  </footer>
+
+
+    <section id="preliminary-design-verification">
+      <h1>Preliminary Design Verification</h1>
+  
+      <h2 class="subtitle">Assembly and Servo Integration</h2>
+      <p>The robotic arm was assembled using pre-built components and servos. These servos were connected to a Raspberry Pi through a old servo controller that I had (I will try to find the exact type on amazon and put the link at the end of the blog) and controlled using the Adafruit ServoKit library. Each servo was responsible for specific movements: the base for horizontal rotation, the shoulder and elbow for vertical positioning, the wrist for up-and-down movement, and the gripper for opening and closing. This setup provided precise control over the arm’s movements.</p>
+  
+      <h2 class="subtitle">Motor Testing and Manual Calibration</h2>
+      <p>Before moving to advanced features like computer vision and inverse kinematics, I wrote a program (<a href="https://github.com/nischalkharel/RoboticArm/blob/main/KeyboardControlledArm.py" class="highlight-link">
+    <span class="highlight"><strong>KeyboardControlledArm.py</strong></span></a>) to manually control the arm's motors. The program mapped keyboard keys to specific joints for precise movement testing. For example:</p>
+      <ul>
+          <li><strong>w/s:</strong> Control the shoulder's up-and-down motion.</li>
+          <li><strong>a/d:</strong> Control the wrist's up-and-down movement.</li>
+          <li><strong>Arrow Keys:</strong> Control the base rotation (left/right) and the elbow's up-and-down motion.</li>
+          <li><strong>o/c:</strong> Open and close the gripper.</li>
+      </ul>
+      <p>The program also displayed real-time angles of all servos on the command line, helping me understand how angle adjustments corresponded to the arm's physical movements.</p>
+  
+      <p>Here is an example of how the program mapped keyboard inputs to control the servos:</p>
+      <div class="code-block">
+          <pre><code>
+  <a href="https://github.com/nischalkharel/RoboticArm/blob/main/KeyboardControlledArm.py" class="highlight-link">
+    <span class="highlight"><strong>KeyboardControlledArm.py</strong></span></a>
+  # Shoulder control
+  if key == ord('w'):
+      if shoulder_angle < SHOULDER_MAX:
+          shoulder_angle += ANGLE_STEP
+  elif key == ord('s'):
+      shoulder_angle -= ANGLE_STEP
+  
+  # Wrist control
+  if key == ord('a'):
+      if wrist_angle > WRIST_MIN:
+          wrist_angle -= ANGLE_STEP
+  elif key == ord('d'):
+      if wrist_angle < WRIST_MAX:
+          wrist_angle += ANGLE_STEP
+          </code></pre>
+      </div>
+  
+      <h2 class="subtitle">Key Features of the Testing Program</h2>
+      <p>The testing program had several key features:</p>
+      <ul>
+          <li>Real-time angle display on the command line.</li>
+          <li>Dynamic angle limit adjustments to prevent collisions.</li>
+          <li>Smooth movements achieved through small angle increments.</li>
+          <li>Intuitive keyboard controls for easy testing and calibration.</li>
+      </ul>
+  
+      <h2 class="subtitle">Testing Outcomes</h2>
+      <p>This program helped me:</p>
+      <ul>
+          <li>Understand how changes in angles correspond to physical movements.</li>
+          <li>Identify safe operating ranges for each servo.</li>
+          <li>Ensure smooth, realistic motion by fine-tuning angle adjustments.</li>
+      </ul>
+  
+      <p>Below is an example of how the program updated the servo angles in real time:</p>
+      <div class="code-block">
+          <pre><code>
+  <a href="https://github.com/nischalkharel/RoboticArm/blob/main/KeyboardControlledArm.py" class="highlight-link">
+    <span class="highlight"><strong>KeyboardControlledArm.py</strong></span></a>
+  # Update the servos with the new angles
+  kit.servo[0].angle = base_angle
+  kit.servo[1].angle = shoulder_angle
+  kit.servo[2].angle = elbow_angle
+  kit.servo[3].angle = wrist_angle
+  kit.servo[4].angle = gripper_angle
+          </code></pre>
+      </div>
+  
+      <h2 class="subtitle">Getting Things to Work in Real Life</h2>
+      <p>This testing phase gave me a better understanding of how the arm moves and reacts. Manually controlling the motors helped me identify calibration issues, like how small errors in servo movements could affect the gripper’s ability to pick up objects. These early tests built a strong foundation for moving to computer vision and automated joint angle calculations.</p>
+  </section>
+  
+</main>
+
 
   <script>
     function goBack() {
@@ -238,3 +447,4 @@
   </script>
 </body>
 </html>
+
