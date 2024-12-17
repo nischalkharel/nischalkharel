@@ -779,6 +779,100 @@ def move_motor(motor_id, target_angle):
 </section>
 
 
+<section id="design-testing">
+  <h1>Design Testing</h1>
+  <p>
+      Once I had everything working — the camera, motor control, and IK calculations — I wanted to test if the robotic arm could consistently pick up a block placed in random spots. My goal was to ensure the arm could detect the block, calculate the angles, and move smoothly to grab it without any glitches.
+  </p>
+
+  <h2 class="subtitle_2">Testing Process</h2>
+  <p>
+      For testing, I placed the block with an ArUco marker in front of the arm at different random distances and angles. I would then say <strong>“activate now”</strong> to trigger the arm. The process looked like this:
+  </p>
+  <ul>
+      <li><strong>Step 1:</strong> Place the block somewhere in front of the arm.</li>
+      <li><strong>Step 2:</strong> Say “activate now” to start the system.</li>
+      <li><strong>Step 3:</strong> Watch as the camera detects the marker, calculates the angles, and moves the arm to grab the block.</li>
+  </ul>
+
+  <p>
+      I ran this test over and over with random placements to make sure the arm worked consistently. The only thing I had to be careful about was keeping the ArUco marker <strong>visible to the camera</strong>. If the marker was hidden or turned away, the camera couldn’t detect the block, and the arm wouldn’t move.
+  </p>
+
+  <p>
+      To handle this, I wrote a loop in my code that only allows the arm to move if the camera detects the marker. If I say <strong>“activate now”</strong> and there’s no block (or the marker isn’t visible), the arm just does nothing. I don’t have a video for that case because, well, nothing happens!
+  </p>
+
+  <div style="text-align: center; margin: 20px 0;">
+    <iframe width="800" height="450" src="https://www.youtube.com/embed/_Ltb7v08fbA" 
+            title="Robotic arm picking up block with computer vision" frameborder="0" allowfullscreen>
+    </iframe>
+    <div class="caption-box">
+      <p>This video is from initial tests before I added the ability to do voice control and the speaker, otherwise, everything else is the same.</p>
+    </div>
+</div>
+
+  <h2 class="subtitle_2">Testing Results</h2>
+  <p>
+      I’m really happy with how the arm performed. Once the marker was in view, the arm moved smoothly and consistently to pick up the block. I tested it in several scenarios:
+  </p>
+  <ul>
+      <li><strong>Random Distances:</strong> I placed the block closer (around 5 inches) and further away (around 12 inches).</li>
+      <li><strong>Different Angles:</strong> I placed the block off to the side and directly in front of the arm to test the base rotation.</li>
+      <li><strong>No Block Scenarios:</strong> When no block was present, the arm didn’t move at all — exactly as expected.</li>
+  </ul>
+
+  <h2 class="subtitle_2">Challenges</h2>
+  <p>
+      The biggest challenge was keeping the ArUco marker visible. At certain angles, the marker would tilt slightly, and the camera couldn’t detect it. I solved this by ensuring the block was placed flat with the marker always facing the camera. 
+  </p>
+  <p>
+      Other than that, the system worked smoothly. Switching to ArUco markers from stereo cameras and color detection paid off big time because it made everything much more reliable.
+  </p>
+
+  <h2 class="subtitle_2">Video Demonstration</h2>
+  <p>
+      Below is a video showing multiple trials of the arm detecting the block and successfully picking it up. This video is a <strong>one-take recording</strong> to demonstrate that the arm works <strong>consistently</strong> without any cuts or edits.
+  </p>
+  <div style="text-align: center; margin: 20px 0;">
+      <iframe width="800" height="450" src="https://www.youtube.com/embed/APHYfmsYTsw" 
+              title="Robotic Arm Testing" frameborder="0" allowfullscreen>
+      </iframe>
+  </div>
+
+  <h2 class="subtitle_2">Summary</h2>
+  <p>
+      Testing showed that the robotic arm works exactly as I wanted:
+  </p>
+  <ul>
+      <li>If the ArUco marker is visible, the arm moves smoothly to the block and picks it up.</li>
+      <li>If no block is detected, the arm stays in place, avoiding unnecessary movements.</li>
+  </ul>
+  <p>
+      This consistency was the main reason I switched to using ArUco markers instead of relying on stereo color detection. Overall, I’m really happy with how it turned out!
+  </p>
+</section>
+
+
+<section id="conclusion-future">
+  <h1 class="subtitle">Conclusion and Future Work</h1>
+  <p>
+      After finishing this project, I realized I learned much more than I initially set out to. Beyond just building a robotic arm with computer vision, this project taught me how to work on a solo project and figure things out on my own. There were so many moments when I felt completely lost, with no idea what to do next. But I had to push through, research, test, and sometimes just keep trying until something worked. Looking back, I think learning how to troubleshoot and problem-solve without being told exactly what to do has been the most valuable part of this project.
+  </p>
+  <p>
+      That said, I did achieve my technical goals too. I got to play around with <strong>computer vision</strong> and really understand how I can use it for detecting and interacting with objects. I also got hands-on experience with the <strong>Raspberry Pi</strong>, which was a big highlight for me. I hadn’t worked with it much before, but now I feel more confident using it, and I’m excited to explore more of its capabilities in future projects.
+  </p>
+
+  <h2 class="subtitle_2">Future Plans</h2>
+  <p>
+      For the future, I already have an idea for my next project: I want to take everything I learned from this and build a new robotic arm that can <strong>play chess with me</strong>. I have a general plan for what I want to do — combining computer vision to detect the board and pieces, integrating AI to calculate moves, and using inverse kinematics (IK) to move the arm. It’s definitely going to be a challenge, but I’m hoping to take this project as a starting point and push myself even further. I haven’t had time to start on it yet, but I’m really looking forward to it as my next big project.
+  </p>
+
+  <h2 class="subtitle_2">Summary</h2>
+  <p>
+      Overall, I’m really proud of what I accomplished with this project. It works consistently, does what I set out for it to do, and I learned so much along the way. This project gave me a solid foundation in <strong>computer vision</strong>, <strong>robotics</strong>, and working with <strong>Raspberry Pi</strong>, and I can’t wait to see how I’ll use those skills in the future.
+  </p>
+</section>
 
 
   
