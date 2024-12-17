@@ -321,6 +321,18 @@ code {
     white-space: pre-wrap;
 }
 
+.video-container {
+  display: flex; /* Enables flexbox */
+  justify-content: center; /* Centers horizontally */
+  margin: 20px 0; /* Adds space above and below */
+}
+
+.small-video {
+  height: 500px; /* Keeps the current height */
+  width: auto; /* Maintains aspect ratio */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 
   </style>
@@ -354,7 +366,7 @@ code {
 
       <section id="original-design-concepts">
         <h2 class="subtitle">Original Design Concepts</h2>
-        <p>When I started, my project idea was to create a robotic arm with a camera module to detect an object’s location and pick it up. At first, I planned to 3D print the arm parts and attach motors myself to build the entire structure from scratch. However, after discussing with Dr. Dickerson, I decided to use a pre-made arm shell and focus more on integrating motors, the camera module, and the software. This approach allowed me to prioritize the technical challenges of control and computer vision without being delayed by manufacturing issues.</p>
+        <p>When I started, my project idea was to create a robotic arm with a camera module to detect an object’s location and pick it up. At first, I planned to 3D print the arm parts and attach motors myself to build the entire structure from scratch. However, after discussing with Dr. Dickerson (my professor), I decided to use a pre-made arm shell and focus more on integrating motors, the camera module, and the software. This approach allowed me to prioritize the technical challenges of control and computer vision without being delayed by manufacturing issues.</p>
       
         <p>For the camera, I originally wanted to use a stereo camera for depth sensing since they are known for accurately measuring distances. I thought this would be crucial for ensuring precise movements of the arm. However, after experimenting, I found that the stereo camera setup was challenging to configure and calibrate. While I did manage to get it to detect and track objects using OpenCV’s checkerboard calibration technique, it wasn’t significantly more accurate than a simpler setup using a single Arducam with ArUco markers. So, I ultimately decided to use the Arducam, which was more reliable for my application. If you’re curious, I’ve uploaded my stereo camera experiments to my GitHub repository, where you can check out how I set it up.</p>
       
@@ -432,7 +444,15 @@ code {
   
       <h2 class="subtitle">Assembly and Servo Integration</h2>
       <p>The robotic arm was assembled using pre-built components and servos. These servos were connected to a Raspberry Pi through a old servo controller that I had (I will try to find the exact type on amazon and put the link at the end of the blog) and controlled using the Adafruit ServoKit library. Each servo was responsible for specific movements: the base for horizontal rotation, the shoulder and elbow for vertical positioning, the wrist for up-and-down movement, and the gripper for opening and closing. This setup provided precise control over the arm’s movements.</p>
-  
+      
+      <div class="video-container">
+        <video class="small-video" controls>
+          <source src="prototype.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    
+
       <h2 class="subtitle">Motor Testing and Manual Calibration</h2>
       <p>Before moving to advanced features like computer vision and inverse kinematics, I wrote a program (<a href="https://github.com/nischalkharel/RoboticArm/blob/main/KeyboardControlledArm.py" class="highlight-link">
     <span class="highlight"><strong>KeyboardControlledArm.py</strong></span></a>) to manually control the arm's motors. The program mapped keyboard keys to specific joints for precise movement testing. For example:</p>
@@ -482,8 +502,14 @@ code {
           <li>Identify safe operating ranges for each servo.</li>
           <li>Ensure smooth, realistic motion by fine-tuning angle adjustments.</li>
       </ul>
-  
-      <p>Below is an example of how the program updated the servo angles in real time:</p>
+      <div class="image-gallery">
+        <img src="keyboardResults.png" alt="Robotic Arm Design" style="width: 500px; height: auto;">
+        <div class="caption-box">
+          <p>The above image shows the printouts from Keyboard controlled program, and these indicate the current angles of each motor. It was really helpful to be able to see this change as I moved each motors.</p>
+        </div>
+        </div>
+      
+        <p>Below is an example of how the program updated the servo angles in real time:</p>
       <div class="code-block">
           <pre><code>
   <a href="https://github.com/nischalkharel/RoboticArm/blob/main/KeyboardControlledArm.py" class="highlight-link">
@@ -525,22 +551,35 @@ code {
                 </li>
             </ul>
         </li>
+        <div class="image-gallery">
+          <img src="arm_pic.png" alt="Robotic Arm Design" style="width: 300px; height: auto;">
+        </div>
         <li><strong>Software:</strong>
             <ul>
-                <li><strong>Camera System:</strong> OpenCV’s ArUco library for marker detection and distance measurement. The <code>camera.py</code> module handles real-time image processing and calculates block coordinates.</li>
-                <li><strong>Motor Control:</strong> The <code>calculate_angles_for.py</code> module computes joint angles using a simplified inverse kinematics approach. The <code>move_motor.py</code> module handles smooth servo movements, ensuring precise arm positioning.</li>
-                <li><strong>Voice Interaction:</strong> Speech recognition via <code>speech_recognition</code> library to detect user commands, and <code>espeak</code> for generating responses from the arm.</li>
-                <li><strong>Main Controller:</strong> The <code>arm.py</code> file integrates all subsystems, acting as the central logic hub.</li>
+                <li><strong>Camera System:</strong> OpenCV’s ArUco library for marker detection and distance measurement. The <a href="https://github.com/nischalkharel/RoboticArm/blob/main/camera.py" class="highlight-link">
+                  <span class="highlight"><strong>camera.py</strong></span></a> module handles real-time image processing and calculates block coordinates.</li>
+                <li><strong>Motor Control:</strong> The <a href="https://github.com/nischalkharel/RoboticArm/blob/main/calculate_angles_for.py" class="highlight-link">
+                  <span class="highlight"><strong>calculate_angles_for.py</strong></span></a> module computes joint angles using a simplified inverse kinematics approach. The <a href="https://github.com/nischalkharel/RoboticArm/blob/main/move_motor.py" class="highlight-link">
+                    <span class="highlight"><strong>move_motor.py</strong></span></a> module handles smooth servo movements, ensuring precise arm positioning.</li>
+                <li><strong>Voice Interaction:</strong> Speech recognition via speech_recognition library to detect user commands, and espeak for generating responses from the arm.</li>
+                <li><strong>Main Controller:</strong> The <a href="https://github.com/nischalkharel/RoboticArm/blob/main/arm.py" class="highlight-link">
+                  <span class="highlight"><strong>arm.py</strong></span></a> file integrates all subsystems, acting as the central logic hub.</li>
             </ul>
         </li>
     </ul>
+    
 
     <h2 class="subtitle">Design Process and Challenges</h2>
     <p>This project was my first real experience using a Raspberry Pi on my own (I had used it in a class before, but it was a structured lab with step-by-step instructions, so I didn’t get much room to experiment). Diving into this project was a whole new level of trial and error, especially because I was trying to figure out everything from scratch.</p>
     <ol>
         <li><strong>Camera System Development:</strong>
             <p>At first, I thought using a stereo camera would be the easiest way to measure depth and detect the block. Boy, was I wrong! The stereo camera I ordered didn’t have much documentation, so I spent hours—no, days—trying to get it to work. I installed so many libraries, tried countless configurations, and just when I thought it would never work, I finally managed to get it running. But even then, I wasn’t out of the woods.</p>
-            <p>My original idea was to use the camera to recognize the block's color (blue in my case) and estimate its distance by comparing its size in the image to its actual size. That worked... kind of. Until the lighting changed. Then everything fell apart. It was so inconsistent that I couldn’t trust it at all.</p>
+            <div class="image-gallery">
+              <img src="stereo.png" alt="Robotic Arm Design" style="width: 600px; height: auto;">
+              <div class="caption-box">
+                <p>My original idea was to use the camera to recognize the block's color (blue in my case) and estimate its distance by comparing its size in the image to its actual size. That worked... kind of. Until the lighting changed. Then everything fell apart. It was so inconsistent that I couldn’t trust it at all.</p>
+              </div>
+            </div>
             <p>After some research, I stumbled upon ArUco markers, and let me tell you, they were a game changer. They made everything way more consistent by providing clear features for the camera to detect, even with changing lighting. Using OpenCV’s ArUco library, I was able to calculate the block’s position based on the marker’s size and orientation:</p>
             <div class="code-block">
                 <pre><code>
@@ -558,6 +597,16 @@ if ids is not None:
         <li><strong>Switching to a Single Camera:</strong>
             <p>Once I got the markers working with the stereo camera, I had the thought, “Do I even need the stereo camera?” Turns out, I didn’t. A single camera with ArUco markers worked just as well for my setup. It simplified everything—no more messing with two camera feeds, less processing power needed, and fewer headaches overall.</p>
         </li>
+
+        <div class="image-gallery">
+          <img src="aruco.png" alt="Robotic Arm Design" style="width: 600px; height: auto;">
+          <div class="caption-box">
+              <p>This image shows ArUco marker being detected by the Arducam.</p>
+          </div>
+        </div>
+        <li><strong>Voice Interaction:</strong>
+          <p>One of the coolest parts of the project was adding voice commands. I used <code>speech_recognition</code> to listen for commands like “activate now” and <code>espeak</code> to make the arm respond with phrases like “Arm activating!” This feature made the system feel more alive and interactive, which I really enjoyed.</p>
+      </li>
         <li><strong>Motor Control and Inverse Kinematics:</strong>
             <p>Once I had the block’s position figured out, the next challenge was moving the arm to pick it up. Instead of using traditional matrix-based inverse kinematics (IK), which felt way too complicated for me, I came up with a simpler method using trigonometry. This approach let me calculate the joint angles without diving into the deep end of IK theory.</p>
             <div class="code-block">
@@ -572,101 +621,162 @@ def move_motor(motor_id, target_angle):
                 </code></pre>
             </div>
         </li>
-        <li><strong>Voice Interaction:</strong>
-            <p>One of the coolest parts of the project was adding voice commands. I used <code>speech_recognition</code> to listen for commands like “activate now” and <code>espeak</code> to make the arm respond with phrases like “Arm activating!” This feature made the system feel more alive and interactive, which I really enjoyed.</p>
-        </li>
+        <section id="simplified-ik">
+          <h1>From Theory to Reality: Solving IK Step by Step</h1>
+          <p>
+            Moving the robotic arm accurately to pick up a block placed on the ground wasn’t as straightforward as I first thought. Most of the inverse kinematics (IK) explanations I found online were too theoretical, and applying them directly to my arm setup didn’t work. After many hours of testing, trial, and error, I developed a simplified IK approach specific to my system.
+          </p>
+          <p>
+            Here’s a step-by-step breakdown of how I calculate the angles for each motor, adjust the wrist motor’s position using <span class="highlight">G<sub>z</sub></span> and <span class="highlight">G<sub>y</sub></span>, and ensure the shoulder and elbow angles stay within their safe ranges.
+          </p>
+          <p>This is mostly going through <a href="https://github.com/nischalkharel/RoboticArm/blob/main/calculate_angles_for.py" class="highlight-link">
+            <span class="highlight"><strong>calculate_angles_for.py:</strong></span></a></p>
+          <!-- Step-by-Step Explanation -->
+          <h2 class="subtitle">Understanding G<sub>y</sub> and G<sub>z</sub></h2>
+          <p>
+            Initially, I assumed the wrist motor would be **vertically aligned above the block**. In this position:
+          </p>
+          <div class="caption-box">
+            G<sub>y</sub> = 6.5 inches (vertical distance)<br>
+            G<sub>z</sub> = 0 inches (horizontal offset from the block).
+          </div>
+          <p>
+            If the distance from the shoulder to the wrist motor (target point) cannot be reached with the given arm lengths <span class="highlight">L<sub>2</sub></span> (shoulder to elbow) and <span class="highlight">L<sub>3</sub></span> (elbow to wrist), I gradually adjust <span class="highlight">G<sub>z</sub></span> by increasing it in small increments (1% of Z). As a result, <span class="highlight">G<sub>y</sub></span> decreases because the direct distance from the wrist to the block must always stay constant at 6.5 inches.
+          </p>
+          <p>The following code handles this adjustment:</p>
+          <div class="code-block">
+            <pre><code>
+        G_z = 0  # Start with no horizontal offset
+        G_y = GRIPPER_LENGTH  # Vertical distance initially equals gripper length
+        
+        while G_z <= z:
+            shoulder_to_target_y = L1 - G_y  # Height from shoulder to wrist
+            shoulder_to_target_distance = math.sqrt(x**2 + z**2) - G_z  # Horizontal distance
+        
+            # Calculate the total distance (R) from shoulder to wrist
+            R = math.sqrt(shoulder_to_target_y**2 + shoulder_to_target_distance**2)
+        
+            # Check if the target is reachable
+            if R <= (L2 + L3):
+                # Proceed with angle calculations
+                break
+            else:
+                G_z += 0.01 * z  # Increment G_z
+                G_y = math.sqrt(GRIPPER_LENGTH**2 - G_z**2)  # Adjust G_y
+            </code></pre>
+          </div>
+        
+          <!-- Step-by-Step Math Explanation -->
+          <h2 class="subtitle">Example Walkthrough</h2>
+          <p>
+            Let’s assume we want the robotic arm to grab a block located at:
+          </p>
+          <div class="caption-box">(x, y, z) = (3, 0.5, 7)</div>
+          <p>Here’s how the calculations proceed:</p>
+        
+          <ul>
+            <li>
+              <strong>Step 1:</strong> Calculate the **base motor angle** using the horizontal offset.
+              <div class="caption-box">
+                θ<sub>base</sub> = atan2(3, 7) = 23.2°<br>
+                Adjust for motor offset: θ<sub>base</sub> = 90 - 23.2 = 66.8°
+              </div>
+            </li>
+
+            <div class="image-gallery">
+              <img src="base_angle.jpg" alt="Robotic Arm Design" style="width: 500px; height: auto;">
+              <div class="caption-box">
+                <p>Here you can visually see what X = 3 inches and Z = 7 inches looks like. Using arctan I calculate the angle the base would have to rotate inorder to face the block directly. Also I show the hypotneuse calculation because it is used in later steps.</p>
+              </div>
+            </div>
+
+            <li>
+              <strong>Step 2:</strong> Initialize <span class="highlight">G<sub>y</sub></span> and <span class="highlight">G<sub>z</sub></span>. Here I am assuming the gripper is lined up straight up form the block like in the image below.
+              <div class="caption-box">
+                G<sub>z</sub> = 0 inches<br>
+                G<sub>y</sub> = 6.5 inches
+              </div>
+            </li>
+
+            <section id="ik-glimpse">
+              <div class="image-container">
+                  <img src="straight.jpg" alt="Handwritten IK Math Notes" class="image">
+                  <img src="angled.jpg" alt="IK Applied to Arm Diagram" class="image">
+              </div>
+              <div class="caption-box">
+                  <p>Left image shows the initial position where G<sub>z</sub> = 0 inches and G<sub>y</sub> = 6.5 inches.</p>
+                  <p>Right image shows a situtaion where we haven't found the working angles, so we keep increasing G<sub>z</sub> and G<sub>y</sub>.</p>
+              </div>
+          </section>
+
+            <li>
+              <strong>Step 3:</strong> Calculate the **height** and **horizontal distance** from the shoulder to the wrist motor.
+              <div class="caption-box">
+                H = L<sub>1</sub> + G<sub>y</sub> - Y = 4 + 6.5 - 4 = 3.5 inches<br>
+                D = √(X² + Z²) - G<sub>z</sub> = √(3² + 7²) - 0 = 7.62 inches
+              </div>
+            </li>
+
+            <li><strong>Step 4:</strong> Check if <span class="math-inline">R</span> is reachable. If <span class="math-inline">R > (L<sub>2</sub> + L<sub>3</sub>)</span>, increment <span class="math-inline">G<sub>z</sub></span> to tilt the wrist and reduce <span class="math-inline">G<sub>y</sub></span>.</li>
+
+              <div class="caption-box">
+                R = √(H² + D²) = √(3.5² + 7.62²) = 8.4 inches <br>
+                **if this distance is higher than L_2 and L_3 combined then I just keep increasing G_z and trying to get this distance lower.**
+              </div>
+            </li>
+            <div class="image-gallery">
+              <img src="shoulder_elbow.jpg" alt="Robotic Arm Design" style="width: 900px; height: auto;">
+              <div class="caption-box">
+                <p>In the image above, you can see how we can use the 7.62 inches found above (and in step 1 image) to calculate the <strong>distance</strong> from the shoulder to the wrist motor.</p>
+              </div>
+            </div>
+            <li>
+              <strong>Step 5:</strong> Use the **law of cosines** to calculate the angles for the elbow and shoulder motors.
+              <div class="caption-box">
+                cos(θ<sub>elbow</sub>) = (L<sub>2</sub>² + L<sub>3</sub>² - R²) / (2 * L<sub>2</sub> * L<sub>3</sub>)<br>
+                cos(θ<sub>shoulder</sub>) = (L<sub>2</sub>² + R² - L<sub>3</sub>²) / (2 * L<sub>2</sub> * R)
+              </div>
+            </li>
+            <div class="image-gallery">
+              <img src="angles.jpg" alt="Robotic Arm Design" style="width: 900px; height: auto;">
+              <div class="caption-box">
+                <p>We can then now use L_2 (measured and stays constant), L_3 (measured and stays constant), and shoulder to wrist distance (calculated above) to find angle in elbow and shoulder.</p>
+                <p>I then compare these angles to the min and max that I recordered from the preliminary design verification section to verify if these angles are in the range.</p>
+                <div class="image-gallery">
+                  <img src="measured_data.png" alt="Robotic Arm Design" style="width: 600px; height: auto;">
+                </div>
+              </div>
+            </div>
+
+          </ul>
+        
+          <p>The final angles for the motors are compared to their pre-defined safe ranges:</p>
+          <div class="code-block">
+            <pre><code>
+        if SHOULDER_MIN <= theta_shoulder_deg <= SHOULDER_MAX and ELBOW_MIN <= theta_elbow_deg <= ELBOW_MAX:
+            realShoulderAngle = theta_shoulder_deg - 85
+            realElbowAngle = 245 - theta_elbow_deg
+            print("Valid angles found.")
+            return theta_base_deg, realShoulderAngle, realElbowAngle, theta_wrist_deg
+        else:
+            print("Angles out of range. Adjusting G_z further.")
+            </code></pre>
+          </div>
+        
+          <!-- Summary -->
+          <h2 class="subtitle">Why This Works</h2>
+          <p>
+            By incrementally adjusting <span class="highlight">G<sub>z</sub></span> and recalculating <span class="highlight">G<sub>y</sub></span>, the system ensures that the robotic arm can reach as far as possible without exceeding its mechanical limits. If no valid angles are found after adjusting, the program concludes that the block is unreachable.
+          </p>
+          <p>
+            This simplified IK method allowed me to achieve smooth and consistent movements without diving deep into advanced control theory. It uses trigonometry and iteration to solve a complex problem step by step.
+          </p>
+          <p>Also this example happened to work in just one try, but if the block was further away, we would have to loop around and constantly increase G_z until we can get the R (distance from shoulder to wrist) to be lower than L_2 + L_3.</p>
+
+        </section>
+        
     </ol>
 </section>
-
-
-
-<section id="ik-calculation">
-  <h1 class="subtitle">Simplified Inverse Kinematics (IK)</h1>
-
-  <p>In this section, I’ll explain the simplified approach I used for calculating the joint angles of the robotic arm. My goal was to determine the angles for the base, shoulder, elbow, and wrist motors to make the gripper reach a block located on the ground at a fixed height <span class="math-inline">(y = 0.5 inches)</span>. Here’s the step-by-step process:</p>
-
-  <h2 class="subtitle_2">The Thought Process</h2>
-  <p>To simplify things, I assumed the gripper fingers would initially be <strong>vertical</strong> (pointing straight down to the ground). From there:</p>
-  <ul>
-      <li><strong>Start with the wrist:</strong> I adjust the vertical <span class="math-inline">G<sub>y</sub></span> and horizontal <span class="math-inline">G<sub>z</sub></span> positions of the wrist joint.</li>
-      <li><strong>Check reachability:</strong> I calculate the total distance <span class="math-inline">R</span> from the shoulder joint to the wrist using the Pythagorean theorem. If this distance exceeds the total length of the arm sections <span class="math-inline">(L2 + L3)</span>, I increment <span class="math-inline">G<sub>z</sub></span> to tilt the gripper.</li>
-      <li><strong>Find joint angles:</strong> Using trigonometry, I calculate the angles for the elbow, shoulder, and wrist motors.</li>
-  </ul>
-
-  <h2 class="subtitle_2">Step-by-Step Explanation</h2>
-  <ul>
-      <li><strong>Step 1:</strong> Calculate the base angle <span class="math-inline">θ<sub>base</sub></span> using the block's <span class="math-inline">(x, z)</span> coordinates:</li>
-      <div class="math-block">
-          <p>θ<sub>base</sub> = atan2(X, Z)</p>
-          <p>θ<sub>base</sub> = 90° - θ<sub>base</sub> (adjusted for motor offset)</p>
-      </div>
-
-      <li><strong>Step 2:</strong> Set the initial wrist position:</li>
-      <div class="math-block">
-          <p>G<sub>z</sub> = 0</p>
-          <p>G<sub>y</sub> = 6.5 inches (gripper length)</p>
-      </div>
-
-      <li><strong>Step 3:</strong> Calculate the height <span class="math-inline">H</span> and horizontal distance <span class="math-inline">D</span> from the shoulder to the wrist:</li>
-      <div class="math-block">
-          <p>H = L<sub>1</sub> + G<sub>y</sub> - Y</p>
-          <p>D = √(X² + Z²) - G<sub>z</sub></p>
-      </div>
-
-      <li><strong>Step 4:</strong> Use the Pythagorean theorem to calculate the total distance <span class="math-inline">R</span> from the shoulder to the wrist:</li>
-      <div class="math-block">
-          <p>R = √(H² + D²)</p>
-      </div>
-
-      <li><strong>Step 5:</strong> Check if <span class="math-inline">R</span> is reachable. If <span class="math-inline">R > (L<sub>2</sub> + L<sub>3</sub>)</span>, increment <span class="math-inline">G<sub>z</sub></span> to tilt the wrist and reduce <span class="math-inline">G<sub>y</sub></span>.</li>
-  </ul>
-
-  <h2 class="subtitle_2">Example Walkthrough</h2>
-  <div class="example-walkthrough">
-      <p>Let’s say the block is located at <span class="math-inline">(x, y, z) = (3, 0.5, 7)</span>. Here’s how the calculations would proceed:</p>
-      <ul>
-          <li><strong>Base angle:</strong>
-              <span class="math-inline">θ<sub>base</sub> = atan2(3, 7) = 23.2°</span></li>
-          <li>Adjust for motor offset:
-              <span class="math-inline">θ<sub>base</sub> = 90 - 23.2 = 66.8°</span></li>
-          <li><strong>Initial wrist position:</strong>
-              <span class="math-inline">G<sub>z</sub> = 0</span>,
-              <span class="math-inline">G<sub>y</sub> = 6.5</span></li>
-          <li><strong>Height and horizontal distance:</strong>
-              <div class="math-block">
-                  <p>H = 10.0</p>
-                  <p>D = 7.62</p>
-              </div>
-          </li>
-          <li><strong>Shoulder-to-wrist distance:</strong>
-              <div class="math-block">
-                  <p>R = √(10.0² + 7.62²) = 12.62</p>
-              </div>
-              <p>Since <span class="math-inline">R > 9.45</span>, increment <span class="math-inline">G<sub>z</sub></span>.</p>
-          </li>
-          <li><strong>Iterate until:</strong>
-              <span class="math-inline">R ≤ 9.45</span>. Update <span class="math-inline">G<sub>z</sub></span> and <span class="math-inline">G<sub>y</sub></span> at each step.</li>
-          <li>Calculate elbow, shoulder, and wrist angles:</li>
-      </ul>
-      <div class="code-block">
-          <code>
-# Example Python Code for Angle Calculation
-cos_theta_elbow = (L2**2 + L3**2 - R**2) / (2 * L2 * L3)
-theta_elbow = math.acos(cos_theta_elbow)
-theta_elbow_deg = math.degrees(theta_elbow)
-
-cos_theta_shoulder = (L2**2 + R**2 - L3**2) / (2 * L2 * R)
-theta_shoulder = math.acos(cos_theta_shoulder)
-theta_shoulder_deg = math.degrees(theta_shoulder)
-          </code>
-      </div>
-  </div>
-
-  <p>At the end of this process, if valid angles are found for the shoulder and elbow joints, the arm will move to grab the block. If not, the block is considered unreachable due to the physical limitations of the arm.</p>
-</section>
-
-
-
 
 
 
